@@ -14,6 +14,5 @@ class SignUpView(generic.CreateView):
     template_name = 'registration/signup.html'
     success_url = 'login'
 
-    
-    
+
     
