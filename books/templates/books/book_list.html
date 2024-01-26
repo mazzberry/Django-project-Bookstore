@@ -3,9 +3,10 @@
 {% block page_title %}لیست کتاب ها{% endblock %}
 
 {% block content %}
-
+{##tamrin (get_absolute_url)#}
     {% for book in books %}
         <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+
         <p1>{{ book.description }}</p1>
         <br>
     {% endfor %}
