@@ -39,13 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #third part p
+    #third party package
     'crispy_forms',
     'crispy_bootstrap4',
 
     #local apps
     'accounts',
     'pages',
+    'books',
 
 
     
