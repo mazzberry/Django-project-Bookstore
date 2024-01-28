@@ -5,9 +5,10 @@
 {% block content %}
 {##tamrin (get_absolute_url)#}
     {% for book in books %}
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
-
-        <p1>{{ book.description }}</p1>
+        <a href="{{ book.get_absolute_url }}">{{ book.title | capfirst }}</a>
+{#<p1>{{ book.description | truncatewords }}</p1> --> | truncatewords : n -> n = adad : n kalame aval ra namayesh midahad #}
+{#<p1>{{ book.description | truncatewords }}</p1> --> | truncatechars : n -> n = adad : n harf aval ra namayesh midahad #}
+        <p1>{{ book.description | truncatewords:10 }}</p1>
         <br>
     {% endfor %}
 

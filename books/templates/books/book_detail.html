@@ -4,9 +4,10 @@
 
 {% block content %}
 
-    <h1>{{ books.title }}</h1>
-    <p1>{{ books.description }}</p1>
-    <p1>{{ books.author }}</p1>
+    <h1>{{ books.title | capfirst }}</h1>
+    <p1>{{ books.description | linebreaks }}</p1>
+{#    <p1>{{ books.description | linebreaksbr }}</p1>  tafavot dat dashtan tag <br> hast #}
+    <p1>{{ books.author | capfirst }}</p1>
     <h4>{{ books.price }} $ </h4>
     <a href="{% url 'book_update' books.id %}"><button class="btn btn-info" type="button">ویرایش</button></a>
     <a href="{% url 'book_delete' books.id %}"><button class="btn btn-danger" type="button">حذف</button></a>
