@@ -1,11 +1,12 @@
 {% extends '_base.html' %}
+{% load book_tags %}
 
 {% block page_title %} جزئیات کتاب {{ book.title }}{% endblock %}
 
 {% block content %}
 
     <h1>{{ books.title | capfirst }}</h1>
-    <p1>{{ books.description | linebreaks }}</p1>
+    <p1>{{ books.description | to_lowerCase:'توضیحات' | linebreaks }}</p1>
 {#    <p1>{{ books.description | linebreaksbr }}</p1>  tafavot dat dashtan tag <br> hast #}
     <p1>{{ books.author | capfirst }}</p1>
     <h4>{{ books.price }} $ </h4>
