@@ -3,15 +3,43 @@
 {% block page_title %}لیست کتاب ها{% endblock %}
 
 {% block content %}
-{##tamrin (get_absolute_url)#}
-    {% for book in books %}
-        <a href="{{ book.get_absolute_url }}">{{ book.title | capfirst }}</a>
-{#<p1>{{ book.description | truncatewords }}</p1> --> | truncatewords : n -> n = adad : n kalame aval ra namayesh midahad #}
-{#<p1>{{ book.description | truncatewords }}</p1> --> | truncatechars : n -> n = adad : n harf aval ra namayesh midahad #}
-        <p1>{{ book.description | truncatewords:10 }}</p1>
-        <br>
-    {% endfor %}
 
-    <a href="{% url 'book_create' %}">اضافه کردن کتاب جدید</a>
+    {##tamrin (get_absolute_url)#}
+    {#    {% for book in books %}#}
+    {#        <a href="{{ book.get_absolute_url }}">{{ book.title | capfirst }}</a>#}
+    {#<p1>{{ book.description | truncatewords }}</p1> --> | truncatewords : n -> n = adad : n kalame aval ra namayesh midahad #}
+    {#<p1>{{ book.description | truncatewords }}</p1> --> | truncatechars : n -> n = adad : n harf aval ra namayesh midahad #}
+    {#        <p1>{{ book.description | truncatewords:10 }}</p1>#}
+    {#        <br>#}
+    {#    {% endfor %}#}
+
+    <div class="container mt-4">
+        <div class="row flex-row-reverse justify-content-md-center">
+            {% for book in books %}
+            <div class="card m-2" style="max-width: 45%">
+                <div class="row g-0 h-100" dir="rtl">
+                    <div class="col-md-4">
+                        <img src="https://newcdn.fidibo.com/images/books/69249_94233_normal.jpg"
+                             class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 h-100">
+                        <a href="{{book.get_absolute_url}}"><div class="d-flex flex-column justify-content-between h-100">
+                            <div class="card-body">
+                                <h3 class="card-title"><strong>{{ book.title }}</strong></h3>
+                                <p class="card-text pt-3">{{ book.description |linebreaks | truncatewords:12 }}</p>
+                                <p class="text-muted">نویسنده: {{ book.author }}</p>
+                            </div>
+                        </div></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    	<a href="{% url 'book_create' %}">اضافه کردن کتاب جدید</a>
+    {% endif %}
+
 
 {% endblock %}
