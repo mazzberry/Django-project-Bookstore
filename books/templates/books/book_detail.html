@@ -16,14 +16,14 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-6 text-center text-md-end mt-md-1 mt-4">
-                        <h1>هفت عادت مردمان موثر</h1>
-                        <h5 class="small my-1"><span class="text-muted">نویسنده: </span>استفان کاوی</h5>
+                        <h1>{{ books.title }}</h1>
+                        <h5 class="small my-1"><span class="text-muted">نویسنده: </span>{{ books.author }}</h5>
                         <h5 class="small my-1"><span class="text-muted">مترجم: </span>الهام خرسندی</h5>
                         <h5 class="small my-1"><span class="text-muted">انتشارات: </span>هوزمزد</h5>
                     </div>
                     <div class="col-xs-12 col-md-3 d-flex flex-column">
                         <h3 class="align-self-center pt-2 text-muted align-self-md-end">
-                            ۱۰,۰۰۰ تومان
+                            {{ books.price }} تومان
                         </h3>
                     </div>
                 </div>
@@ -31,12 +31,7 @@
 
             <div class="d-flex justify-content-center">
                 <div class="my-3 p-5 w-sm-75 w-100">
-                    «زمانی‌که سازمان‌های آمریکایی ناامیدانه در صدد انرژی دادن به کارکنان و پرورش مدیران در تمام سطح‌ها
-                    بودند، کاوی فلسفه‌ای نیرو بخش را در زندگی معرفی کرد که موفقیت در کار و تجارت را نیز ضمانت می‌کرد...
-                    این روش، ترکیبی از خرد، احساسات و تجربه‌های کاربردی بود.» این جملات را «رزابث ماس کانتر» نویسنده‌ی
-                    آمریکایی درباره‎‌ی کتاب هفت عادت مردمان موثر گفته است. کتاب مشهوری که هرکسی که چیزهای بیشتری از
-                    زندگی می‌خواهد باید آن را بخواند، به کار ببندد و در نهایت از معجزه‌ای که در زندگی‌اش اتفاق می‌افتد
-                    لذت ببرد.
+                    {{books.description | linebreaks}}
                 </div>
             </div>
 
