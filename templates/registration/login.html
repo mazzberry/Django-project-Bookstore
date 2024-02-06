@@ -1,6 +1,11 @@
 {% extends '_base.html' %}
+{% load static %}
+
 {% load crispy_forms_tags %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
 
 {% block page_title %}
     home page

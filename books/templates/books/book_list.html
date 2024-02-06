@@ -23,7 +23,7 @@
                              class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8 h-100">
-                        <a href="{{book.get_absolute_url}}"><div class="d-flex flex-column justify-content-between h-100">
+                        <a class="text-decoration-none" href="{{book.get_absolute_url}}"><div class="d-flex flex-column justify-content-between h-100">
                             <div class="card-body">
                                 <h3 class="card-title"><strong>{{ book.title }}</strong></h3>
                                 <p class="card-text pt-3">{{ book.description |linebreaks | truncatewords:12 }}</p>
