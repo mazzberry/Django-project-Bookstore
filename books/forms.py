@@ -8,4 +8,5 @@ class BooksForm(forms.ModelForm):
             'author',
             'description',
             'price',
+            'book_cover',
         ]
