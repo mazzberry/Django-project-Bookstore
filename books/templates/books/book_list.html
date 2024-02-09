@@ -16,31 +16,91 @@
     <div class="container mt-4">
         <div class="row flex-row-reverse justify-content-md-center">
             {% for book in books %}
-            <div class="card m-2" style="max-width: 45%">
-                <div class="row g-0 h-100" dir="rtl">
-                    <div class="col-md-4">
-                          {% if book.book_cover %}
-                            <img src="{{ book.book_cover.url }}" class="shadow img-fluid rounded-start" alt="...">
+                <div class="card m-2" style="max-width: 45%">
+                    <div class="row g-0 h-100" dir="rtl">
+                        <div class="col-md-4">
+                            {% if book.book_cover %}
+                                <img src="{{ book.book_cover.url }}" class="shadow img-fluid rounded-start" alt="...">
                             {% endif %}
-                    </div>
-                    <div class="col-md-8 h-100">
-                        <a class="text-decoration-none" href="{{book.get_absolute_url}}"><div class="d-flex flex-column justify-content-between h-100">
-                            <div class="card-body">
-                                <h3 class="card-title"><strong>{{ book.title }}</strong></h3>
-                                <p class="card-text pt-3">{{ book.description |linebreaks | truncatewords:12 }}</p>
-                                <p class="text-muted">نویسنده: {{ book.author }}</p>
-                            </div>
-                        </div></a>
+                        </div>
+                        <div class="col-md-8 h-100">
+                            <a class="text-decoration-none" href="{{ book.get_absolute_url }}">
+                                <div class="d-flex flex-column justify-content-between h-100">
+                                    <div class="card-body">
+                                        <h3 class="card-title"><strong>{{ book.title }}</strong></h3>
+                                        <p class="card-text pt-3">{{ book.description |linebreaks | truncatewords:12 }}</p>
+                                        <p class="text-muted">نویسنده: {{ book.author }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
+
     </div>
 
-    {% if user.is_authenticated %}
-    	<a href="{% url 'book_create' %}">اضافه کردن کتاب جدید</a>
-    {% endif %}
+    {#    {{ page_obj.number }}#}
+    {#    {% if page_obj.has_next %}#}
+    {#    	next {{ page_obj.next_page_number }}#}
+    {#    {% endif %}#}
+    {#    {% if page_obj.has_previous %}#}
+    {#        {{ page_obj.previous_page_number }}#}
+    {#    {% endif %}#}
+    {##}
+    {#    {% if user.is_authenticated %}#}
+    {#    	<a href="{% url 'book_create' %}">اضافه کردن کتاب جدید</a>#}
+    {#    {% endif %}#}
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-4">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+
+            <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center m4-6">
+
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            	<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                {{ page_obj.previous_page_number }}
+            </a>
+            </li>
+            {% endif %}
+
+            <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+        {% if page_obj.has_next %}
+        	<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                {{ page_obj.next_page_number }}
+            </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        {% endif %}
+
+
+        </ul>
+    </nav>
 
 
 {% endblock %}
