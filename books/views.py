@@ -7,6 +7,7 @@ from .forms import BooksForm
 
 class BookListView(generic.ListView):
     model = books
+    paginate_by = 3 #paginate_by -> gives us a page with 4(e.x) object that exist in DB and next & previous
     template_name = 'books/book_list.html'
     context_object_name = 'books'
 
