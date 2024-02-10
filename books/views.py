@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from .models import books
 from .forms import BooksForm
+from django.shortcuts import get_object_or_404, render
 # Create your views here.
 
 class BookListView(generic.ListView):
@@ -11,9 +12,21 @@ class BookListView(generic.ListView):
     template_name = 'books/book_list.html'
     context_object_name = 'books'
 
-class BookDetailView(generic.DetailView):
-    model = books
-    template_name = 'books/book_detail.html'
+# class BookDetailView(generic.DetailView):
+#     model = books
+#     template_name = 'books/book_detail.html'
+
+def book_detail_view(request, pk):
+
+    # get book object
+    book = get_object_or_404(books, pk=pk)
+
+    # get book comments
+    book_comment = book.comments.all()
+
+    context = {'books':book, 'comments':book_comment}
+
+    return render(request, 'books/book_detail.html', context)
 
 class BookCreateView(generic.CreateView):
     # model = books  // agar model be createview bedim mitoonim **(FORM_CLASS RA BEHESH NADIM)* va khodesh form ro misaze
