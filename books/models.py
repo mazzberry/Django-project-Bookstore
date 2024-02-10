@@ -29,7 +29,7 @@ class comments(models.Model):
 
 
     def __str__(self):
-        return f'{self.user} : {self.text}'
+        return self.text
 
 
 
