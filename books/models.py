@@ -21,7 +21,7 @@ class books(models.Model):
 
 class comments(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    book = models.ForeignKey(books, on_delete=models.CASCADE)
+    book = models.ForeignKey(books, on_delete=models.CASCADE, related_name='comments')
 
     text = models.TextField()
 
