@@ -15,4 +15,4 @@ class CommentsForm(forms.ModelForm):
 
     class Meta:
         model = comments
-        fields = ('text',)
+        fields = ('text','recommend',)

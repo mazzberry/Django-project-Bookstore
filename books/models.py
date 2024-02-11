@@ -25,6 +25,9 @@ class comments(models.Model):
 
     text = models.TextField()
 
+    recommend = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+
     datetime_created = models.DateField(auto_now_add=True)
 
 
