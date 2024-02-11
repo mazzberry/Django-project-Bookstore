@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import books
-from .forms import BooksForm
+from .forms import BooksForm, CommentsForm
 from django.shortcuts import get_object_or_404, render
 # Create your views here.
 
@@ -24,9 +24,25 @@ def book_detail_view(request, pk):
     # get book comments
     book_comment = book.comments.all()
 
-    context = {'books':book, 'comments':book_comment}
+    if request.method == 'POST':
+        comment_form = CommentsForm(request.POST)
 
-    return render(request, 'books/book_detail.html', context)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.book = book
+            new_comment.user = request.user #__________________________IMPORTANT_____________________________#
+            new_comment.save()
+
+            comment_form = CommentsForm()
+
+    else:
+        comment_form = CommentsForm()
+
+
+    return render(request,
+        'books/book_detail.html',
+        {'books':book, 'comments':book_comment,'comment_form':comment_form})
+
 
 class BookCreateView(generic.CreateView):
     # model = books  // agar model be createview bedim mitoonim **(FORM_CLASS RA BEHESH NADIM)* va khodesh form ro misaze
