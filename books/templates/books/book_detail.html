@@ -46,6 +46,11 @@
 
                     	<div class="border-bottom mb-3">
                         <h5 class="mb-3">{{ comment.user }}</h5><br>
+                            {% if comment.recommend %}
+                                <p>این محصول را پیشنهاد میکنم</p>
+                                {% else %}
+                                <p>این محصول را پیشنهاد نمیکنم</p>
+                            {% endif %} 
                         <p>{{ comment.text | linebreaks }}</p>
 
                     </div>
