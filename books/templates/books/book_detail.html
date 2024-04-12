@@ -5,86 +5,89 @@
 {% block page_title %} جزئیات کتاب {{ book.title }}{% endblock %}
 
 {% block content %}
-<div class="container mt-5" dir="rtl">
-    <div class="">
+    <div class="container mt-5" dir="rtl">
         <div class="">
-            <div class="d-flex justify-content-center">
-                <div class="row w-sm-75 w-100">
-                    <div class="col-xs-12 col-md-3 d-flex justify-content-center">
-                        <div>
-                            {% if books.book_cover %}
-                            <img  src="{{ books.book_cover.url }}" class="img-fluid rounded-start" alt="...">
+            <div class="">
+                <div class="d-flex justify-content-center">
+                    <div class="row w-sm-75 w-100">
+                        <div class="col-xs-12 col-md-3 d-flex justify-content-center">
+                            <div>
+                                {% if books.book_cover %}
+                                    <img src="{{ books.book_cover.url }}" class="img-fluid rounded-start" alt="...">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 text-center text-md-end mt-md-1 mt-4">
+                            <h1>{{ books.title }}</h1>
+                            <h6>{{ books.user.username }}</h6>
+                            <h5 class="small my-1"><span class="text-muted">نویسنده: </span>{{ books.author }}</h5>
+                            <h5 class="small my-1"><span class="text-muted">مترجم: </span>الهام خرسندی</h5>
+                            <h5 class="small my-1"><span class="text-muted">انتشارات: </span>هوزمزد</h5>
+                            {% if books.user == user %}
+                                <a href="{% url 'book_update' books.id %}">ویرایش</a>
+                                <a href="{% url 'book_delete' books.id %}">حذف</a>
                             {% endif %}
+
+                        </div>
+                        <div class="col-xs-12 col-md-3 d-flex flex-column">
+                            <h3 class="align-self-center pt-2 text-muted align-self-md-end">
+                                {{ books.price }} تومان
+                            </h3>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-md-6 text-center text-md-end mt-md-1 mt-4">
-                        <h1>{{ books.title }}</h1>
-                        <h6>{{ books.user.username }}</h6>
-                        <h5 class="small my-1"><span class="text-muted">نویسنده: </span>{{ books.author }}</h5>
-                        <h5 class="small my-1"><span class="text-muted">مترجم: </span>الهام خرسندی</h5>
-                        <h5 class="small my-1"><span class="text-muted">انتشارات: </span>هوزمزد</h5>
-                        <a href="{% url 'book_update' books.id %}">ویرایش</a>
-                        <a href="{% url 'book_delete' books.id %}">حذف</a>
-                    </div>
-                    <div class="col-xs-12 col-md-3 d-flex flex-column">
-                        <h3 class="align-self-center pt-2 text-muted align-self-md-end">
-                            {{ books.price }} تومان
-                        </h3>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="my-3 p-5 w-sm-75 w-100">
+                        {{ books.description | linebreaks }}
                     </div>
                 </div>
-            </div>
 
-            <div class="d-flex justify-content-center">
-                <div class="my-3 p-5 w-sm-75 w-100">
-                    {{books.description | linebreaks}}
-                </div>
-            </div>
+                <div class="d-flex justify-content-center">
+                    <div class="card shadow my-3 p-5 w-sm-75 w-100">
+                        <h2 class="mb-5">نظرات:</h2>
+                        {% for comment in comments %}
 
-            <div class="d-flex justify-content-center">
-                <div class="card shadow my-3 p-5 w-sm-75 w-100">
-                    <h2 class="mb-5">نظرات:</h2>
-                    {% for comment in comments %}
-
-                    	<div class="border-bottom mb-3">
-                        <h5 class="mb-3">{{ comment.user }}</h5><br>
-                            {% if comment.recommend %}
-                                <p>این محصول را پیشنهاد میکنم</p>
+                            <div class="border-bottom mb-3">
+                                <h5 class="mb-3">{{ comment.user }}</h5><br>
+                                {% if comment.recommend %}
+                                    <p>این محصول را پیشنهاد میکنم</p>
                                 {% else %}
-                                <p>این محصول را پیشنهاد نمیکنم</p>
-                            {% endif %} 
-                        <p>{{ comment.text | linebreaks }}</p>
+                                    <p>این محصول را پیشنهاد نمیکنم</p>
+                                {% endif %}
+                                <p>{{ comment.text | linebreaks }}</p>
 
+                            </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
 
-            <div class="d-flex justify-content-center">
-                <div class="card shadow my-3 p-5 w-sm-75 w-100">
-                    <h3>نظر خود را وارد کنید:</h3>
-                    <form method="POST">
-                        {% csrf_token %}
-{#                        <div class="form-group py-2">#}
-{#                            <label class="py-1" for="author_name">نام شما:</label>#}
-{#                            <input type="text" class="form-control" placeholder="علی علوی" name="author_name">#}
-{#                        </div>#}
-{#                        <div class="form-group py-2">#}
-{#                            <label class="py-1" for="email">ایمیل شما:</label>#}
-{#                            <input type="email" class="form-control" placeholder="example@gmail.com" name="email">#}
-{#                        </div>#}
-{#                        <div class="form-group py-2">#}
-{#                            <label class="py-1" for="comment_text">متن نظر:</label>#}
-{#                            <textarea class="form-control" name="text" rows="3"#}
-{#                                      placeholder="نظر خود را اینجا وارد کنید."></textarea>#}
-{#                        </div>#}
-                        {{ comment_form | crispy }}
-                        <button type="submit" class="btn btn-primary mt-3">ارسال</button>
-                    </form>
+                <div class="d-flex justify-content-center">
+                    <div class="card shadow my-3 p-5 w-sm-75 w-100">
+                        <h3>نظر خود را وارد کنید:</h3>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {#                        <div class="form-group py-2">#}
+                            {#                            <label class="py-1" for="author_name">نام شما:</label>#}
+                            {#                            <input type="text" class="form-control" placeholder="علی علوی" name="author_name">#}
+                            {#                        </div>#}
+                            {#                        <div class="form-group py-2">#}
+                            {#                            <label class="py-1" for="email">ایمیل شما:</label>#}
+                            {#                            <input type="email" class="form-control" placeholder="example@gmail.com" name="email">#}
+                            {#                        </div>#}
+                            {#                        <div class="form-group py-2">#}
+                            {#                            <label class="py-1" for="comment_text">متن نظر:</label>#}
+                            {#                            <textarea class="form-control" name="text" rows="3"#}
+                            {#                                      placeholder="نظر خود را اینجا وارد کنید."></textarea>#}
+                            {#                        </div>#}
+                            {{ comment_form | crispy }}
+                            <button type="submit" class="btn btn-primary mt-3">ارسال</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}
