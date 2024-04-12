@@ -4,7 +4,7 @@ from django.views import generic
 from .models import books
 from .forms import BooksForm, CommentsForm
 from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -57,15 +57,22 @@ class BookCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'books/book_create.html'
 
 
-class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
+class BookUpdateView(LoginRequiredMixin,UserPassesTestMixin, generic.UpdateView):
     model = books
     form_class = BooksForm
     template_name = 'books/book_update.html'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
 
 class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = books
     template_name = 'books/book_delete.html'
     success_url = reverse_lazy('book_list')
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
 
